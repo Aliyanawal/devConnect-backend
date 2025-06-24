@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   userRegister: async (req, res) => {
-    const { firstName, lastName, email, password, uid } = req.body;
+    const { name, email, password, uid } = req.body;
 
     // Check if a uid is provided (for Google login)
     if (uid) {
@@ -72,8 +72,7 @@ module.exports = {
 
       // Create a new user with the email, password, and other details
       const newUser = new User({
-        firstName,
-        lastName,
+        name,
         email,
         password: hashedPassword,
       });
