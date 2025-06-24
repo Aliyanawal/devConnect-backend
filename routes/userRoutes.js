@@ -1,11 +1,12 @@
 const express=require('express')
 const router=express.Router()
-const tryCatchMiddleware=require("../middleware/tryCatch")
+const tryCAtchMiddleware=require('../middleware/tryCatch')
 const user=require('../controllers/userController')
 
+
 router
-.post('/register',tryCatchMiddleware(user.userRegister))
-.post("/login",tryCatchMiddleware(user.userLogin))
+.post('/register',tryCAtchMiddleware(user.userRegister))
+.post("/login",tryCAtchMiddleware(user.userLogin))
 
 
 module.exports=router
