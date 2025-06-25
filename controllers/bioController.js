@@ -5,16 +5,25 @@ const Bio = require("../models/bioModels");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// exports.fetch = async(req, res) => {
 
-//     const users = await User.find();
-//     if(users.length ===0 ){
-//       return res.status(404).json({message: "user Not Found."});
-//     }
-//     res.status(200).json(users);
+
+// Public route to get all users and their public details
+exports.getAllUsers = async (req, res) => {
+  
+    const users = await User.find({}, 'name email bio github education experience resume');
     
- 
-// };
+    if (users.length === 0) {
+      return res.status(404).json({ message: "No users found." });
+    }
+
+    res.status(200).json({
+      status: "success",
+      users,
+    });
+
+  
+};
+
 
 // exports.update = async(req,res) => {
 //   const id = req.params.id;
@@ -26,16 +35,15 @@ const jwt = require("jsonwebtoken");
 //   res.status(500).json({message: "User Updated."})
 // };
 
-exports.getProfile = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    const users = await User.find().select("name bio education experience resume github");
+    if (!users || users.length === 0) {
+      return res.status(404).json({ message: "No users found" });
     }
-    res.json(user);
-  } catch (err) {
-    console.error("Error fetching profile:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
   }
 };
 
