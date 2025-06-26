@@ -1,4 +1,3 @@
-// backend/controllers/userController.js
 const User = require("../models/userModels");
 const Bio = require("../models/bioModels");
 
@@ -8,20 +7,27 @@ const jwt = require("jsonwebtoken");
 
 
 // Public route to get all users and their public details
-exports.getAllUsers = async (req, res) => {
+// exports.getAllUsers = async (req, res) => {
   
-    const users = await User.find({}, 'name email bio github education experience resume');
+//     const users = await User.find({}, 'name email bio github education experience resume');
     
-    if (users.length === 0) {
-      return res.status(404).json({ message: "No users found." });
-    }
+//     if (users.length === 0) {
+//       return res.status(404).json({ message: "No users found." });
+//     }
 
-    res.status(200).json({
-      status: "success",
-      users,
-    });
+//     res.status(200).json({
+//       status: "success",
+//       users,
+//     });
 
   
+// };
+
+
+exports.getUserById = async (req,res) => {
+  const user = await User.findById(req.params.id);
+  if(!user)return res.status(404).json({message:"User Not Found. "});
+  res.status(200).json(user);
 };
 
 
@@ -34,6 +40,20 @@ exports.getAllUsers = async (req, res) => {
 //   const UpdateUser = await User.findByIdAndUpdate(id,rer.body,{new:true})
 //   res.status(500).json({message: "User Updated."})
 // };
+
+exports.getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error("Error fetching profile:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 exports.getAllUsers = async (req, res) => {
   try {
