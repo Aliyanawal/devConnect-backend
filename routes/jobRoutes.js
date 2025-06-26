@@ -4,6 +4,6 @@ const { addJob, getAllJobs } = require("../controllers/jobController");
 
 // You can protect addJob route with middleware if needed
 router.post("/add", addJob);
-router.get("/getall", getAllJobs);
+router.get("/getAll", getAllJobs);
 
 module.exports = router;
