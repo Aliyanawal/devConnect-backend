@@ -1,5 +1,5 @@
 const User = require("../models/userModels");
-const Bio = require("../models/bioModels");
+
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -57,7 +57,7 @@ exports.getProfile = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const users = await User.find().select("name bio education experience resume github");
+    const users = await User.find().select("name bio education experience projects resume github");
     if (!users || users.length === 0) {
       return res.status(404).json({ message: "No users found" });
     }

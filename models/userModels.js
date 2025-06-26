@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
   experience: { type: String, default: '' },
   resume: { type: String, default: '' },
   github: { type: String, default: '' },
+  projects: {type: String, default: ''},
     
 
 }, 
