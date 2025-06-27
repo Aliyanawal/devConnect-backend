@@ -114,7 +114,7 @@ module.exports = {
           userId: user._id,
         },
         secret,
-        { expiresIn: "24h" }
+        { expiresIn: "2d" }
       );
 
       return res.status(200).json({

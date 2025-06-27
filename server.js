@@ -12,6 +12,7 @@ const applicationRoutes = require('./routes/applicationRoutes')
 const port=process.env.PORT
 app.use(express.json())
 app.use(cors())
+app.use('/uploads', express.static('uploads'));
 
 connectDB()
 // app.get('/',(req,res)=>{
